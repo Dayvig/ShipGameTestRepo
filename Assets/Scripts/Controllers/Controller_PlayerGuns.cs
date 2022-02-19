@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Models;
 using UnityEngine;
 
 public class Controller_PlayerGuns : MonoBehaviour
@@ -8,7 +10,7 @@ public class Controller_PlayerGuns : MonoBehaviour
 
     List<GameObject> _inactiveBullets;
     List<GameObject> _activeBullets;
-
+    
     Transform leftGun;
     Transform rightGun;
 
@@ -29,6 +31,7 @@ public class Controller_PlayerGuns : MonoBehaviour
             else 
                 rightGun = guns[i].transform;
         }
+        
     }
 
     void Update()
@@ -65,15 +68,21 @@ public class Controller_PlayerGuns : MonoBehaviour
 
         // Grab a bullet that's already been made, or make a new one if there isn't one
         GameObject bullet;
+        BulletProperties b;
+        
         if (_inactiveBullets.Count > 0)
         {
             bullet = _inactiveBullets[0];
             bullet.SetActive(true);
+            b = bullet.GetComponent<BulletProperties>();
+            b.SetDirection(bulletDir());
             _inactiveBullets.Remove(bullet);
         }
         else
         {
             bullet = Instantiate(playerModel.bulletPrefab);
+            b = bullet.GetComponent<BulletProperties>();
+            b.SetDirection(bulletDir());
         }
         // Add bullet to _activeBullets to make it fly
         _activeBullets.Add(bullet);
@@ -83,15 +92,24 @@ public class Controller_PlayerGuns : MonoBehaviour
             bullet.transform.position = leftGun.position;
         else
             bullet.transform.position = rightGun.position;
+        
+    }
 
-        bullet.transform.rotation = Quaternion.Euler(playerModel.actualRotation);
+    private Vector3 bulletDir()
+    {
+        return new Vector3(
+            (float) Math.Sin(playerModel.actualRotation.y * Mathf.Deg2Rad),
+            0,
+            (float) Math.Cos(playerModel.actualRotation.y * Mathf.Deg2Rad));
     }
 
     private void _BulletsUpdate()
     {
         foreach (var bullet in _activeBullets)
         {
-            bullet.transform.position += Vector3.forward * Time.deltaTime * playerModel.bulletSpeed;
+            Vector3 dir = bullet.GetComponent<BulletProperties>().GetDirection();
+            bullet.transform.position +=  dir * Time.deltaTime * playerModel.bulletSpeed;
+            Debug.Log("Dirx: "+dir.x+" Diry: "+dir.y);
         }
 
         // Goes backwards because removing element from collection

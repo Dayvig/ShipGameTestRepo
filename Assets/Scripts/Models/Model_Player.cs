@@ -23,15 +23,15 @@ public class Model_Player : MonoBehaviour
 
     [Header("Tuning Values")]
     [Range(0.01f, 30.0f)] public float smoothingFactor;
-    public float shipSpeed = 20;
-    public float bulletSpeed = 2;
-    public float fireRate = .002f;
+    public float shipSpeed = 12f;
+    public float bulletSpeed = 2f;
+    public float fireRate = 2f;
     public float limitHorz = 10;
     public float limitVert = 5;
     public float shieldRegenIntervalBase = 1.25f;
     public float turnLimit = 45f;
-    public float rotationSpeed = 0.1f;
-    public float vFactor = 5f;
+    public float rotationSpeed = 2f;
+    public float vFactor = 0.25f;
 
     [Header("Controlled Variables")]
     public Vector3 positionTarget;

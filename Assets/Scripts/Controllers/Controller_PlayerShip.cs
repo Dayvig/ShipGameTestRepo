@@ -120,7 +120,5 @@ public class Controller_PlayerShip : MonoBehaviour
         playerModel.ship.transform.position = playerModel.positionCurrent;
         playerModel.shield.transform.position = playerModel.ship.transform.position;
         playerModel.ship.transform.rotation = Quaternion.Euler(playerModel.actualRotation);
-
-        Debug.Log(playerModel.rotationCurrent);
     }
 }
