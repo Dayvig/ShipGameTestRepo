@@ -109,7 +109,6 @@ public class Controller_PlayerGuns : MonoBehaviour
         {
             Vector3 dir = bullet.GetComponent<BulletProperties>().GetDirection();
             bullet.transform.position +=  dir * Time.deltaTime * playerModel.bulletSpeed;
-            Debug.Log("Dirx: "+dir.x+" Diry: "+dir.y);
         }
 
         // Goes backwards because removing element from collection

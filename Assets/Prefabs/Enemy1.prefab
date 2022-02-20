@@ -181,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ps: {fileID: 2202714463046360502}
   rate: 360
-  hitPoints: 30
+  hitPoints: 90
   shootInterval: 1.5
 --- !u!135 &2676744755969330334
 SphereCollider:

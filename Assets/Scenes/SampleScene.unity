@@ -1381,9 +1381,9 @@ MonoBehaviour:
   limitHorz: 13
   limitVert: 9
   shieldRegenIntervalBase: 3
-  turnLimit: 90
-  rotationSpeed: 1
-  vFactor: 0.6
+  turnLimit: 60
+  rotationSpeed: 0.8
+  vFactor: 0.5
   positionTarget: {x: 0, y: 0, z: 0}
   positionCurrent: {x: 0, y: 0, z: 0}
   rotationTarget: 0
