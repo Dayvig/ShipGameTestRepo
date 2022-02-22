@@ -24,7 +24,7 @@ public class View_PlayerHPAndShield : MonoBehaviour
     private List<Image> _armorPoints;
 
     private int _lastArmor;
-    private int _lastShield;
+    private float _lastShield;
 
     private MeshRenderer[] renderers;
     private ParticleSystem[] jets;

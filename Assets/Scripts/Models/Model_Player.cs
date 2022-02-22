@@ -29,9 +29,11 @@ public class Model_Player : MonoBehaviour
     public float limitHorz = 10;
     public float limitVert = 5;
     public float shieldRegenIntervalBase = 1.25f;
+    public float shieldDurationBase = 3f;
     public float turnLimit = 45f;
     public float rotationSpeed = 2f;
     public float vFactor = 0.25f;
+    public float shieldCooldownBase = 10f;
 
     [Header("Controlled Variables")]
     public Vector3 positionTarget;
@@ -39,11 +41,13 @@ public class Model_Player : MonoBehaviour
     public float rotationTarget;
     public float rotationCurrent;
     public Vector3 actualRotation = new Vector3(0, 0, 0);
-    public int shieldPointsMax;
-    public int shielddPointsCurrent;
+    public float shieldPointsMax;
+    public float shielddPointsCurrent;
     public int hitpointsCurrent;
     public float damageCurrent;
     public int livesCurrent;
     public bool shieldActive;
     public float shieldRegenIntervalCurrent;
+    public float shieldCooldownCurrent;
+    public float shieldDurationCurrent;
 }

@@ -8,7 +8,6 @@ public class Controller_ShieldAndHealth : MonoBehaviour
     public Controller_EnemyBullets bullets;
 
     private float shieldRegenTimer;
-
     void Start()
     {
         Debug.Assert(player != null, "Controller_ShieldAndHealth is looking for a reference to Model_Player, but none has been added in the Inspector!");
@@ -21,39 +20,59 @@ public class Controller_ShieldAndHealth : MonoBehaviour
         player.shieldPointsMax = player.shielddPointsCurrent = player.shieldpointsBase;
         player.livesCurrent = player.livesBase;
         player.shieldRegenIntervalCurrent = player.shieldRegenIntervalBase;
+        player.shieldDurationCurrent = player.shieldDurationBase;
+        player.shieldCooldownCurrent = player.shieldCooldownBase;
     }
 
     public void ShieldAndHealthUpdate()
     {
         // Inputs
-        if (Input.GetKey(KeyCode.LeftShift) && player.shielddPointsCurrent > 0)
+        if (Input.GetKey(KeyCode.LeftShift) && !player.shieldActive && shieldRegenTimer == 0f)
+        {
             player.shieldActive = true;
-        else
+            player.shielddPointsCurrent = player.shieldDurationCurrent;
+            shieldRegenTimer = player.shieldDurationCurrent + player.shieldCooldownCurrent;
+        }
+        if (player.shielddPointsCurrent <= 0)
+        {
             player.shieldActive = false;
+            player.shielddPointsCurrent = 0;
+        }
+
+        
+        player.shielddPointsCurrent -= Time.deltaTime;
+        shieldRegenTimer -= Time.deltaTime;
+        
+        if (shieldRegenTimer < 0f)
+        {
+            shieldRegenTimer = 0f;
+        }
+        
+        Debug.Log(player.shielddPointsCurrent);
 
         // Update Model
         _ShieldOnOff();
 
         // Collision Detection
         float radius = 0;
-        if (player.shieldActive)
+        /*if (player.shieldActive)
             radius = player.shieldedRadius;
-        else
+        else*/
             radius = player.unshieldedRadius;
-
+        
         var colliders = Physics.OverlapSphere(player.ship.transform.position, radius);
-
+        
         foreach (var c in colliders)
         {
             if (c.gameObject.tag == "Enemy")
             {
-                if (player.shieldActive)
+                /*if (player.shieldActive)
                 {
                     player.shielddPointsCurrent -= 3;
                     player.shielddPointsCurrent = (int)Mathf.Max(player.shielddPointsCurrent, 0);
                     shieldRegenTimer = 0;
                 }
-                else           
+                else*/           
                     player.hitpointsCurrent--;
                 
                 Behavior_Enemy1 e = c.GetComponent<Behavior_Enemy1>();
@@ -61,19 +80,19 @@ public class Controller_ShieldAndHealth : MonoBehaviour
             }
             else if (c.gameObject.tag == "EnemyBullet")
             {
-                if (player.shieldActive)
+                /*if (player.shieldActive)
                 {
                     player.shielddPointsCurrent--;
                     player.shielddPointsCurrent = (int)Mathf.Max(player.shielddPointsCurrent, 0);
                     shieldRegenTimer = 0;
                 }
-                else
+                else*/
                     player.hitpointsCurrent--;
 
                 bullets.KillBullet(c.gameObject);
             }
         }
-
+        /*
         if (player.shielddPointsCurrent < player.shieldPointsMax)
         {
             shieldRegenTimer += Time.deltaTime;
@@ -82,7 +101,7 @@ public class Controller_ShieldAndHealth : MonoBehaviour
                 shieldRegenTimer = 0;
                 player.shielddPointsCurrent++;
             }
-        }
+        }*/
     }
 
     private void _ShieldOnOff()

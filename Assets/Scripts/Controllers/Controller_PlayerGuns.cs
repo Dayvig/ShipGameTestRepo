@@ -64,7 +64,14 @@ public class Controller_PlayerGuns : MonoBehaviour
     private void _FireBullet(bool leftGunFire)
     {
         // Cannot fire while shields are up
-        if (playerModel.shieldActive) return;
+        if (playerModel.shieldActive && playerModel.shielddPointsCurrent < playerModel.shieldDurationCurrent - 0.25f)
+        {
+            playerModel.shieldActive = false;
+        }
+        else if (playerModel.shieldActive)
+        {
+            return;
+        }
 
         // Grab a bullet that's already been made, or make a new one if there isn't one
         GameObject bullet;

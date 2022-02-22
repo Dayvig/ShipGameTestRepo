@@ -25,7 +25,10 @@ public class Behavior_Enemy1 : MonoBehaviour
 
     void Update()
     {
-        shootTimer += Time.deltaTime;
+        if (!playerModel.shieldActive)
+        {
+            shootTimer += Time.deltaTime;
+        }
         
         if (shootTimer >= shootInterval)
         {
