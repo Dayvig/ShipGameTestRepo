@@ -48,8 +48,6 @@ public class Controller_ShieldAndHealth : MonoBehaviour
             shieldRegenTimer = 0f;
         }
         
-        Debug.Log(player.shielddPointsCurrent);
-
         // Update Model
         _ShieldOnOff();
 

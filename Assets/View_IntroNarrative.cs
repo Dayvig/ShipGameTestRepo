@@ -1,17 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class View_IntroNarrative : MonoBehaviour
 {
     public Model_Narrative narrative;
 
-    private int _narrativeIndex;
-    private bool _done;
+    public int _narrativeIndex;
+    public bool _done;
     private float _timer;
     private int _stringIndex;
     private float _printDialogueTimer;
+    private List<string> randomizedOptions = new List<string>();
+    private int[] OptionIndexes = {8, 12};
 
     public void Start()
     {
@@ -22,7 +26,22 @@ public class View_IntroNarrative : MonoBehaviour
         if (narrative.portraitSequence.Length != narrative.intervals.Length) testFail = true;
 
         if (testFail) Debug.LogError("ViewController_IntroNarrative: ERROR! Narrative arrays are not the same length.");
+        _done = true;
     }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            StartDialogue();
+        }
+
+        if (!_done)
+        {
+            UpdateFromGameController();
+            UpdateOptions();
+        }
+    }   
 
     public void StartDialogue()
     {
@@ -33,22 +52,35 @@ public class View_IntroNarrative : MonoBehaviour
     public bool UpdateFromGameController()
     {
         _timer += Time.deltaTime;
-        if (_timer >= narrative.intervals[_narrativeIndex])
+        if (!_done && !isOptionIndex(_narrativeIndex) && _timer >= narrative.intervals[_narrativeIndex])
+            
         {
             _timer = 0;
             _narrativeIndex++;
 
-            if (_narrativeIndex < narrative.portraitSequence.Length)
+            if (!isOptionIndex(_narrativeIndex))
             {
                 _ChangePortrait();
                 _ChangeDialogue();
             }
+            else
+            {
+                _DisplayOptions(_narrativeIndex);
+            }
         }
 
-        _IncreaseDisplayedString();
+        if (!isOptionIndex(_narrativeIndex))
+        {
+            _IncreaseDisplayedString();
+        }
 
-        if (_narrativeIndex >= narrative.portraitSequence.Length) 
+        if (_narrativeIndex >= narrative.portraitSequence.Length)
+        {
             _done = true;
+            CleanupNarrative();
+            _narrativeIndex = 0;
+        }
+
         return _done;
     }
 
@@ -74,10 +106,121 @@ public class View_IntroNarrative : MonoBehaviour
         }
     }
 
+    private void _DisplayOptions(int o)
+    {
+        narrative.dialogueDisplay.text = "";
+        int r1;
+        int r2;
+        switch (o)
+        {
+            case 8:
+                r1 = 0;
+                r2 = 3;
+                break;
+            case 12:
+                r1 = 3;
+                r2 = 6;
+                break;
+            default:
+                r1 = 0;
+                r2 = 3;
+                break;
+        }
+        for (int i = r1; i < r2; i++)
+        {
+            randomizedOptions.Add(narrative.options[i]);
+        }
+        for (int i = 0; i < narrative.optionDisplay.Length; i++)
+        {
+            int rand = (int)Random.Range(0, randomizedOptions.Count);
+            narrative.optionDisplay[i].text = randomizedOptions[rand];
+            randomizedOptions.Remove(randomizedOptions[rand]);
+        }
+
+        int rand2 = (int) Random.Range(0, 2);
+        Vector3 selectorPos = narrative.selector.transform.position;
+        selectorPos.x = narrative.optionDisplay[rand2].transform.position.x;
+        narrative.selector.transform.position = selectorPos;
+        narrative.selectorOptionActive = rand2;
+        narrative.selector.enabled = true;
+    }
+
+    private void HideOptions()
+    {
+        narrative.selector.enabled = false;
+        for (int i = 0; i < narrative.optionDisplay.Length; i++)
+            narrative.optionDisplay[i].text = "";
+    }
+
+    private void UpdateOptions()
+    {
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            narrative.selectorOptionActive--;
+            if (narrative.selectorOptionActive < 0)
+            {
+                narrative.selectorOptionActive = 2;
+            }
+            MoveSelector();
+        }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            narrative.selectorOptionActive++;
+            if (narrative.selectorOptionActive > 2)
+            {
+                narrative.selectorOptionActive = 0;
+            }
+            MoveSelector();
+        }
+
+        if (Input.GetKeyUp(KeyCode.H))
+        {
+            narrative.optionsSelected.Add(narrative.selectorOptionActive);
+            if (_narrativeIndex < narrative.portraitSequence.Length-1)
+            {
+                _timer = 0;
+                _narrativeIndex++;
+            }
+            else
+            {
+                _done = true;
+                CleanupNarrative();
+                _narrativeIndex = 0;
+            }
+
+            HideOptions();
+        }
+    }
+
+    private bool isOptionIndex(int q)
+    {
+        for (int i = 0; i < OptionIndexes.Length; i++)
+        {
+            if (q == OptionIndexes[i])
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void MoveSelector()
+    {
+        Vector3 selectorPos = narrative.selector.transform.position;
+        selectorPos.x = narrative.optionDisplay[narrative.selectorOptionActive].transform.position.x;
+        narrative.selector.transform.position = selectorPos;
+    }
+
+
     public void CleanupNarrative()
     {
         for (int i = 0; i < narrative.portraits.Length; i++)
             narrative.portraits[i].enabled = false;
         narrative.dialogueDisplay.text = "";
+        narrative.selector.enabled = false;
+        for (int i = 0; i < narrative.optionDisplay.Length; i++)
+            narrative.optionDisplay[i].text = "";
     }
+        
 }

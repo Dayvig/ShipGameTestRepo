@@ -104,6 +104,7 @@ public class Controller_Game : MonoBehaviour
         playerModel.shield.transform.position = playerModel.positionCurrent;
 
         currentState = GameStates.Spawn;
+        
     }
 
     void Update()
