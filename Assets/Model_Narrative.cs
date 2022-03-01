@@ -15,8 +15,11 @@ public class Model_Narrative : MonoBehaviour
 
     public Text[] optionDisplay;
     public Image selector;
+    public Image dialogueUIBOX;
     public int selectorOptionActive;
     public List<int> optionsSelected = new List<int>();
+    public List<int> correctOptions = new List<int>();
 
     public float textInterval = .04f;
+    public float dialogueStartInterval;
 }

@@ -27,7 +27,7 @@ public class Controller_ShieldAndHealth : MonoBehaviour
     public void ShieldAndHealthUpdate()
     {
         // Inputs
-        if (Input.GetKey(KeyCode.LeftShift) && !player.shieldActive && shieldRegenTimer == 0f)
+        /*if (Input.GetKey(KeyCode.LeftShift) && !player.shieldActive && shieldRegenTimer == 0f)
         {
             player.shieldActive = true;
             player.shielddPointsCurrent = player.shieldDurationCurrent;
@@ -46,7 +46,7 @@ public class Controller_ShieldAndHealth : MonoBehaviour
         if (shieldRegenTimer < 0f)
         {
             shieldRegenTimer = 0f;
-        }
+        }*/
         
         // Update Model
         _ShieldOnOff();

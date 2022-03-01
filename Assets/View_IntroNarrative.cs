@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 using Random = UnityEngine.Random;
 
 public class View_IntroNarrative : MonoBehaviour
@@ -16,6 +17,8 @@ public class View_IntroNarrative : MonoBehaviour
     private float _printDialogueTimer;
     private List<string> randomizedOptions = new List<string>();
     private int[] OptionIndexes = {8, 12};
+    private float dialoguestartTimer = 0;
+    public Model_Player playerModel;
 
     public void Start()
     {
@@ -31,15 +34,20 @@ public class View_IntroNarrative : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (dialoguestartTimer > narrative.dialogueStartInterval)
         {
             StartDialogue();
+            dialoguestartTimer = 0f;
         }
 
         if (!_done)
         {
             UpdateFromGameController();
             UpdateOptions();
+        }
+        else
+        {
+            dialoguestartTimer += Time.deltaTime;
         }
     }   
 
@@ -87,7 +95,8 @@ public class View_IntroNarrative : MonoBehaviour
     private void _ChangePortrait()
     {
         for (int i = 0; i < narrative.portraits.Length; i++)
-            narrative.portraits[i].enabled = (i == narrative.portraitSequence[_narrativeIndex]);   
+            narrative.portraits[i].enabled = (i == narrative.portraitSequence[_narrativeIndex]);
+        narrative.dialogueUIBOX.enabled = true;
     }
     private void _ChangeDialogue()
     {
@@ -173,7 +182,7 @@ public class View_IntroNarrative : MonoBehaviour
             MoveSelector();
         }
 
-        if (Input.GetKeyUp(KeyCode.H))
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
         {
             narrative.optionsSelected.Add(narrative.selectorOptionActive);
             if (_narrativeIndex < narrative.portraitSequence.Length-1)
@@ -185,6 +194,20 @@ public class View_IntroNarrative : MonoBehaviour
             {
                 _done = true;
                 CleanupNarrative();
+                
+                if (narrative.optionsSelected.Count.Equals(narrative.correctOptions.Count))
+                {
+                    bool isCorrect = true;
+                    for (int k = 0; k < narrative.correctOptions.Count; k++)
+                    {
+                        if (!(narrative.correctOptions[k] == narrative.optionsSelected[k]))
+                        {
+                            isCorrect = false;
+                        }
+                    }
+                    if (isCorrect) { playerModel.fireRate /= 2; }
+                    narrative.optionsSelected.Clear();
+                }
                 _narrativeIndex = 0;
             }
 
@@ -207,8 +230,8 @@ public class View_IntroNarrative : MonoBehaviour
 
     private void MoveSelector()
     {
-        Vector3 selectorPos = narrative.selector.transform.position;
-        selectorPos.x = narrative.optionDisplay[narrative.selectorOptionActive].transform.position.x;
+        Vector3 selectorPos = narrative.optionDisplay[narrative.selectorOptionActive].transform.position;
+        selectorPos.y = narrative.optionDisplay[narrative.selectorOptionActive].transform.position.y + 20;
         narrative.selector.transform.position = selectorPos;
     }
 
@@ -221,6 +244,7 @@ public class View_IntroNarrative : MonoBehaviour
         narrative.selector.enabled = false;
         for (int i = 0; i < narrative.optionDisplay.Length; i++)
             narrative.optionDisplay[i].text = "";
+        narrative.dialogueUIBOX.enabled = false;
     }
         
 }

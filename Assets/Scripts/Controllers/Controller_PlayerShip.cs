@@ -5,7 +5,7 @@ using UnityEngine;
 public class Controller_PlayerShip : MonoBehaviour
 {
     public Model_Player playerModel;
-
+    
     private void Start()
     {
         Debug.Assert(playerModel != null, "Controller_PlayerShip is looking for a reference to Model_Player, but none has been added in the Inspector!");
@@ -120,5 +120,10 @@ public class Controller_PlayerShip : MonoBehaviour
         playerModel.ship.transform.position = playerModel.positionCurrent;
         playerModel.shield.transform.position = playerModel.ship.transform.position;
         playerModel.ship.transform.rotation = Quaternion.Euler(playerModel.actualRotation);
+    }
+
+    public void UpgradeGuns()
+    {
+        playerModel.fireRate /= 2;
     }
 }
