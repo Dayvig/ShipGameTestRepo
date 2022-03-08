@@ -82,11 +82,11 @@ public class Controller_PlayerShip : MonoBehaviour
         }
         if (playerModel.rotationCurrent > 0)
         {
-            return playerModel.rotationCurrent -= playerModel.rotationSpeed;
+            return playerModel.rotationCurrent -= playerModel.rotationSpeed/2;
         }
         else
         {
-            return playerModel.rotationCurrent += playerModel.rotationSpeed;
+            return playerModel.rotationCurrent += playerModel.rotationSpeed/2;
         }
     }
 

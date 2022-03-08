@@ -55,7 +55,7 @@ public class Behavior_Enemy1 : MonoBehaviour
             KillThisEnemy();
         }
     }
-
+    
     public void KillThisEnemy()
     {
         effects.MakeExplosion(transform.position);

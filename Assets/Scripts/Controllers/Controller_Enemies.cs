@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Controller_Enemies : MonoBehaviour
 {
@@ -8,11 +11,14 @@ public class Controller_Enemies : MonoBehaviour
 
     public List<Wave> waves;
     private float waveTimer = 1000;
-    private int waveIndex;
+    public int waveIndex;
+    private MotorcycleEnemy values;
+
     void Start()
     {
         Debug.Assert(gameModel != null, "Controller_Enemies is looking for a reference to Model_Game, but none has been added in the Inspector!");
         waves = new List<Wave>();
+        values = GameObject.Find("Model").GetComponent<MotorcycleEnemy>();
     }
 
     void Update()
@@ -32,17 +38,6 @@ public class Controller_Enemies : MonoBehaviour
                 //      - this allows us stop the enemey's behavior for continuing to run after it is dead
                 if (enemy.transform.gameObject.activeSelf && enemy.transform.position.z > -16)
                     anyLeft = true;
-
-                if (enemy.waypointIndex < wave.waypoints.Count)
-                {
-                    enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, wave.waypoints[enemy.waypointIndex], gameModel.enemySpeed1 * Time.deltaTime);
-                    if (Vector3.Distance(enemy.transform.position, wave.waypoints[enemy.waypointIndex]) < .03f)
-                        enemy.waypointIndex++;
-                }
-                else
-                {
-                    enemy.transform.position -= Vector3.forward * gameModel.enemySpeed1 * Time.deltaTime;
-                }
             }
 
             if (!anyLeft)
@@ -56,32 +51,63 @@ public class Controller_Enemies : MonoBehaviour
     {
         // Making waves for the level according to model specifications
         waveTimer += Time.deltaTime;
-        float turnOverTime = 15;
+        float turnOverTime = 10;
         if (waveTimer >= turnOverTime && waveIndex < gameModel.level1Waves.Count)
         {
-            Vector3 startPoint = new Vector3(Random.Range(-17f, 17f), 0, 20);
-            Vector3 spawnStaggerDir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(0, 1f)).normalized;
             int numberToSpawn = gameModel.level1Waves[waveIndex];
 
             Wave newWave = new Wave();
 
             for (int i = 0; i < numberToSpawn; i++)
             {
-                EnemyOnPath EOP = new EnemyOnPath();
-                EOP.transform = Instantiate(gameModel.enemyPrefab1).transform;
-                EOP.transform.position = startPoint + spawnStaggerDir * 3 * i;
-                newWave.enemies.Add(EOP);
-            }
+                GameObject EOP;
+                Vector3 startPoint;
+                switch (gameModel.level1EnemyTypes[waveIndex])
+                {
+                    case "Motorcycle":
+                        EOP = Instantiate(gameModel.motorCycleEnemyPrefab);
+                        Motorcycle_behavior m = EOP.GetComponent<Motorcycle_behavior>();
+                        float displace = Random.Range(-values.startDisplace, values.startDisplace);
+                        if (Random.Range(0, 2) == 0)
+                        {
+                            startPoint = new Vector3(-values.startPos + displace, 0, 20);
+                            m.nextWaypoint = new Vector3(-values.startPos + displace, 0, -20f);
+                            m.isLeft = true;
+                        }
+                        else
+                        {
+                            startPoint = new Vector3(values.startPos+displace, 0, 20);
+                            m.nextWaypoint = new Vector3(values.startPos+displace, 0, -20f);
+                            m.isLeft = false;
+                        }
+                        break;
+                    default:
+                        EOP = Instantiate(gameModel.motorCycleEnemyPrefab);
+                        m = EOP.GetComponent<Motorcycle_behavior>();
+                        if ((int) Random.Range(0, 1) == 0)
+                        {
 
-            for (int i = 0; i < numberToSpawn; i++)
-            {
-                newWave.waypoints.Add(new Vector3(Random.Range(-15f, 15f), 0, Random.Range(-8f, 8f)));
+                            startPoint = new Vector3(-17f, 0, 20);
+                            m.nextWaypoint = new Vector3(17f, 0, -20f);
+                            m.isLeft = true;
+                        }
+                        else
+                        {
+                            startPoint = new Vector3(17f, 0, 20);
+                            m.nextWaypoint = new Vector3(17f, 0, -20f);
+                            m.isLeft = false;
+                        }
+                        break;
+                }
+                Vector3 stagger = new Vector3(0, 0, 2);
+                EOP.transform.position = startPoint + (stagger * i);
+                newWave.enemies.Add(EOP);
             }
 
             waves.Add(newWave);
 
             waveTimer = 0;
-            waveIndex++;
+            //waveIndex++;
         }
     }
 
@@ -99,13 +125,15 @@ public class Controller_Enemies : MonoBehaviour
     [System.Serializable]
     public class Wave
     {
-        public List<EnemyOnPath> enemies;
+        public List<GameObject> enemies;
         public List<Vector3> waypoints;
+        public List<AbstractEnemy> enemyType;
 
         public Wave()
         {
-            enemies = new List<EnemyOnPath>();
+            enemies = new List<GameObject>();
             waypoints = new List<Vector3>();
+            enemyType = new List<AbstractEnemy>();
         }
     }
 
@@ -114,5 +142,6 @@ public class Controller_Enemies : MonoBehaviour
     {
         public Transform transform;
         public int waypointIndex;
+        public AbstractEnemy enemyT;
     }
 }
