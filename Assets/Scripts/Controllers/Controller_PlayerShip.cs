@@ -53,6 +53,10 @@ public class Controller_PlayerShip : MonoBehaviour
         {
             playerModel.rotationCurrent = stabilizeRotation();
         }
+        
+        if (Input.GetKey(KeyCode.Escape)){
+            Application.Quit();
+        }
 }
 
     private float setRotation(bool r)

@@ -223,6 +223,7 @@ MonoBehaviour:
   gameModel: {fileID: 1212158454}
   waves: []
   waveIndex: 0
+  waveInterval: 10
 --- !u!114 &144164432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1775,11 +1776,11 @@ MonoBehaviour:
   hp: 10
   damage: 1
   moveSpeed: 9
-  fireRate: 0.8
+  fireRate: 3.2
   name: Motorcycle
   isLeft: 1
   bulletSpeed: 7
-  bulletAngles: 5a000000
+  bulletAngles: 5a0000002d0000003c000000
   startPos: 14
   startDisplace: 2
   startStagger: 0
@@ -2299,7 +2300,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTestingTesting
+  m_Text: 
 --- !u!222 &1687660767
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ namespace Models
     public class BulletProperties : MonoBehaviour
     {
         public Vector3 Direction;
-
+        
         public BulletProperties()
         {
             Direction = Vector3.forward;

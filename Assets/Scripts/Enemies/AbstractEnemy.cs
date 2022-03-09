@@ -16,6 +16,6 @@ namespace Enemies
         public float startPos;
         public float startDisplace;
         public float startStagger;
-
+        
     }
 }

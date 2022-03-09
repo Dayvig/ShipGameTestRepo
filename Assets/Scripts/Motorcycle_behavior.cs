@@ -54,7 +54,28 @@ public class Motorcycle_behavior : MonoBehaviour
             if (!isLeft)
             {
                 toFireAt.x *= -1;
-                Debug.Log(toFireAt);
+            }
+            bullets.FireBullet(transform.position, toFireAt);
+            //
+            toFireAt = new Vector3(
+                (float) Math.Sin(values.bulletAngles[1] * Mathf.Deg2Rad),
+                0,
+                (float) Math.Cos(values.bulletAngles[1] * Mathf.Deg2Rad)
+            );
+            if (!isLeft)
+            {
+                toFireAt.x *= -1;
+            }
+            bullets.FireBullet(transform.position, toFireAt);
+            //
+            toFireAt = new Vector3(
+                (float) Math.Sin(values.bulletAngles[2] * Mathf.Deg2Rad),
+                0,
+                (float) Math.Cos(values.bulletAngles[2] * Mathf.Deg2Rad)
+            );
+            if (!isLeft)
+            {
+                toFireAt.x *= -1;
             }
             bullets.FireBullet(transform.position, toFireAt);
         }
@@ -77,7 +98,8 @@ public class Motorcycle_behavior : MonoBehaviour
             KillThisEnemy();
         }
     }
-    
+
+    private int currWaypoint = 0;
     public void MovementUpdate()
     {
         transform.position = Vector3.MoveTowards(transform.position, nextWaypoint, values.moveSpeed * Time.deltaTime);
