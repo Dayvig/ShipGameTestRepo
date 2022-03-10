@@ -72,7 +72,7 @@ public class Controller_Enemies : MonoBehaviour
                         if (Random.Range(0, 2) == 0)
                         {
                             startPoint = new Vector3(-values.startPos + displace, 0, 20);
-                            m.nextWaypoint = new Vector3(-values.startPos + displace, 10, -20f);
+                            m.nextWaypoint = new Vector3(-values.startPos + displace, 0, -20f);
                             m.isLeft = true;
                         }
                         else

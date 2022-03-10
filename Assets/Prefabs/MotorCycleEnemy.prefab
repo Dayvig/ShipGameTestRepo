@@ -5079,4 +5079,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ps: {fileID: 2202714463046360502}
   rate: 360
-  bulletAngle: 30
+  nextWaypoint: {x: 0, y: 0, z: 0}
+  Waypoints: []
+  behaviourState: 0
+  isLeft: 0
+  limitHorz: 15
+  limitVert: 8

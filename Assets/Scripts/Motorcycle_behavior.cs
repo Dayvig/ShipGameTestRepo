@@ -23,6 +23,8 @@ public class Motorcycle_behavior : MonoBehaviour
     public List<Vector3> Waypoints = new List<Vector3>();
     public int behaviourState;
     public bool isLeft;
+    public float limitHorz = 15;
+    public float limitVert = 12;
 
     private void Start()
     {
@@ -38,7 +40,7 @@ public class Motorcycle_behavior : MonoBehaviour
     void Update()
     {
         MovementUpdate();
-        if (!playerModel.shieldActive)
+        if (inScreen())
         {
             shootTimer += Time.deltaTime;
         }
@@ -98,7 +100,7 @@ public class Motorcycle_behavior : MonoBehaviour
             KillThisEnemy();
         }
     }
-
+    
     private int currWaypoint = 0;
     public void MovementUpdate()
     {
@@ -109,5 +111,20 @@ public class Motorcycle_behavior : MonoBehaviour
     {
         effects.MakeExplosion(transform.position);
         gameObject.SetActive(false);
+    }
+
+    public bool inScreen()
+    {
+        if ((gameObject.transform.position.x < limitHorz) &&
+            (gameObject.transform.position.x > -limitHorz) &&
+            (gameObject.transform.position.z < limitVert) &&
+            (gameObject.transform.position.z > -limitVert))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
