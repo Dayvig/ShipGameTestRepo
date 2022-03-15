@@ -17,6 +17,7 @@ public abstract class Base_Enemy_Behavior : MonoBehaviour
 
     public float shootInterval;
     private float shootTimer;
+    public int behaviorState = 0;
 
     private void Start()
     {
