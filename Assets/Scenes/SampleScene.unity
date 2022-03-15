@@ -139,7 +139,6 @@ GameObject:
   - component: {fileID: 144164433}
   - component: {fileID: 144164434}
   - component: {fileID: 144164429}
-  - component: {fileID: 144164436}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -264,19 +263,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1212158453}
   bullets: {fileID: 144164433}
---- !u!114 &144164436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 144164426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acec1c12ed2e4e84a290051be652d9a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameModel: {fileID: 1212158454}
 --- !u!1 &351293589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,8 +1762,8 @@ MonoBehaviour:
   hp: 10
   damage: 1
   moveSpeed: 9
-  fireRate: 3.2
-  name: Motorcycle
+  fireRate: 0.8
+  enemyName: Motorcycle
   isLeft: 1
   bulletSpeed: 7
   bulletAngles: 5a0000002d0000003c000000

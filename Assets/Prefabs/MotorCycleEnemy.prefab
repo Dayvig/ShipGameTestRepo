@@ -5087,5 +5087,7 @@ MonoBehaviour:
   rate: 360
   Waypoints: []
   nextWaypoint: {x: 0, y: 0, z: 0}
-  shootInterval: 0.8
+  shootInterval: 0
+  shootTimer: 0
+  behaviorState: 0
   isLeft: 0

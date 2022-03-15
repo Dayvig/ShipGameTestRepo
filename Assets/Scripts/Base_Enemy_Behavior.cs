@@ -16,7 +16,7 @@ public abstract class Base_Enemy_Behavior : MonoBehaviour
     public Vector3 nextWaypoint;
 
     public float shootInterval;
-    private float shootTimer;
+    public float shootTimer;
     public int behaviorState = 0;
 
     private void Start()
@@ -24,7 +24,7 @@ public abstract class Base_Enemy_Behavior : MonoBehaviour
         playerModel = GameObject.Find("Model").GetComponent<Model_Player>();
         effects = GameObject.Find("Controller").GetComponent<Controller_Effects>();
         bullets = GameObject.Find("Controller").GetComponent<Controller_EnemyBullets>();
-        shootTimer = Random.Range(0, shootInterval);
+        shootTimer = 0;
         if (Waypoints.Count == 0)
         {
             Debug.Log("Empty Waypoints on enemy");

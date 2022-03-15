@@ -14,7 +14,7 @@ namespace Enemies
             moveSpeed = 20f;
             fireRate = 1f;
             isLeft = true;
-            name = "Motorcycle";
+            enemyName = "Motorcycle";
         }
         
         public MotorcycleEnemy(bool l)
@@ -24,7 +24,7 @@ namespace Enemies
             moveSpeed = 20f;
             fireRate = 1f;
             isLeft = l;
-            name = "Motorcycle";
+            enemyName = "Motorcycle";
         }
 
         public MotorcycleEnemy(int h, int d, float m, float f, bool l)
@@ -34,7 +34,7 @@ namespace Enemies
             moveSpeed = m;
             fireRate = f;
             isLeft = l;
-            name = "Motorcycle";
+            enemyName = "Motorcycle";
         }
     }
 }

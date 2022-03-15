@@ -8,19 +8,22 @@ using Random = UnityEngine.Random;
 
 public class Motorcycle_behavior : Base_Enemy_Behavior
 {
-    private float shootTimer;
     private MotorcycleEnemy values;
-    public bool isLeft;
+    public bool isLeft; 
+    public static string BULLET_NAME = "MotorcycleBullet";
     
     public override void MovementUpdate()
     {
         transform.position = Vector3.MoveTowards(transform.position, nextWaypoint, values.moveSpeed * Time.deltaTime);
+        shootInterval = values.fireRate;
     }
 
     public override void SetupEnemy()
     {
-        shootTimer = Random.Range(0, shootInterval);
         values = GameObject.Find("Model").GetComponent<MotorcycleEnemy>();
+        shootInterval = values.fireRate;
+        shootTimer = Random.Range(0, shootInterval);
+        hitPoints = values.hp;
     }
 
     public override bool Immune()
@@ -45,6 +48,6 @@ public class Motorcycle_behavior : Base_Enemy_Behavior
 
     public override void FiringPattern()
     {
-        bullets.FireBullet(transform.position, (playerModel.ship.transform.position - transform.position).normalized);
+        bullets.FireBullet(transform.position, (playerModel.ship.transform.position - transform.position).normalized, BULLET_NAME);
     }
 }
