@@ -22,8 +22,8 @@ public class Controller_EnemyBullets : MonoBehaviour
         for (int i = _bulletsActive.Count - 1; i >= 0; i--)
         {
             var tracker = _bulletsActive[i];
-            tracker.bullet.transform.position += tracker.direction * Time.deltaTime * gameModel.enemyBulletSpeed1;
-
+            UpdateBullet(tracker, tracker.name);
+            
             bool offScreen = false;
             if (tracker.bullet.transform.position.x > 20 || tracker.bullet.transform.position.x < -20) offScreen = true;
             if (tracker.bullet.transform.position.z > 20 || tracker.bullet.transform.position.z < -20) offScreen = true;
@@ -32,6 +32,20 @@ public class Controller_EnemyBullets : MonoBehaviour
             {
                 _KillBullet(tracker);
             }
+        }
+    }
+    
+    //updates bullets based on type- is called every frame
+    void UpdateBullet(BulletTracker thisBullet, string bulletName)
+    {
+        switch (bulletName)
+        {
+            case "MotorcycleBullet":
+                thisBullet.bullet.transform.position += thisBullet.direction * Time.deltaTime * gameModel.enemyBulletSpeed1;
+                break; 
+            default:
+                thisBullet.bullet.transform.position += thisBullet.direction * Time.deltaTime * gameModel.enemyBulletSpeed1;
+                break;
         }
     }
 
@@ -83,5 +97,7 @@ public class Controller_EnemyBullets : MonoBehaviour
     {
         public GameObject bullet;
         public Vector3 direction;
+        public string name;
+        //add more properties later maybe
     }
 }

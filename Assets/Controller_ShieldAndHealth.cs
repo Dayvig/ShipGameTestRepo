@@ -73,8 +73,8 @@ public class Controller_ShieldAndHealth : MonoBehaviour
                 else*/           
                     player.hitpointsCurrent--;
                 
-                Behavior_Enemy1 e = c.GetComponent<Behavior_Enemy1>();
-                e.KillThisEnemy();
+                //Behavior_Enemy1 e = c.GetComponent<Behavior_Enemy1>();
+                //e.KillThisEnemy();
             }
             else if (c.gameObject.tag == "EnemyBullet")
             {

@@ -5077,11 +5077,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22754a899d994177843f99075c5e77f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerModel: {fileID: 0}
+  effects: {fileID: 0}
+  bullets: {fileID: 0}
   ps: {fileID: 2202714463046360502}
-  rate: 360
-  nextWaypoint: {x: 0, y: 0, z: 0}
-  Waypoints: []
-  behaviourState: 0
-  isLeft: 0
+  hitPoints: 20
   limitHorz: 15
   limitVert: 8
+  rate: 360
+  Waypoints: []
+  nextWaypoint: {x: 0, y: 0, z: 0}
+  shootInterval: 0.8
+  isLeft: 0
