@@ -92,8 +92,8 @@ GameObject:
   - component: {fileID: 1796847636323191743}
   - component: {fileID: 1796847636323191740}
   - component: {fileID: 1796847636323191741}
-  - component: {fileID: 1796847636323191742}
   - component: {fileID: 2676744755969330334}
+  - component: {fileID: -508755243249687542}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Enemy
@@ -167,22 +167,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1796847636323191742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1796847636323191739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35b9073cc928b7947a09be030527766d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ps: {fileID: 2202714463046360502}
-  rate: 360
-  hitPoints: 90
-  shootInterval: 1.5
 --- !u!135 &2676744755969330334
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -196,6 +180,32 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.89
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-508755243249687542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796847636323191739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22754a899d994177843f99075c5e77f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerModel: {fileID: 0}
+  effects: {fileID: 0}
+  bullets: {fileID: 0}
+  ps: {fileID: 3460088518073488387, guid: c56264f2b350c1e4ea04829534e5a069, type: 3}
+  hitPoints: 20
+  limitHorz: 15
+  limitVert: 12
+  rate: 360
+  Waypoints: []
+  nextWaypoint: {x: 0, y: 0, z: 0}
+  shootInterval: 0
+  shootTimer: 0
+  behaviorState: 0
+  isLeft: 0
 --- !u!1 &1796847637132967849
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,10 +347,5 @@ PrefabInstance:
 --- !u!4 &5828243786889400062 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9112820363321427787, guid: c56264f2b350c1e4ea04829534e5a069, type: 3}
-  m_PrefabInstance: {fileID: 3356634241479985589}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &2202714463046360502 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3460088518073488387, guid: c56264f2b350c1e4ea04829534e5a069, type: 3}
   m_PrefabInstance: {fileID: 3356634241479985589}
   m_PrefabAsset: {fileID: 0}

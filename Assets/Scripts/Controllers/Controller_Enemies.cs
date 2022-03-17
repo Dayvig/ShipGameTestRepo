@@ -12,12 +12,11 @@ public class Controller_Enemies : MonoBehaviour
     private float waveTimer = 1000;
     public int waveIndex;
     private MotorcycleEnemy values;
-<<<<<<< Updated upstream
+
     public float waveInterval = 10f;
 
-=======
     private HogEnemy values2;
->>>>>>> Stashed changes
+
 
     void Start()
     {
@@ -58,23 +57,20 @@ public class Controller_Enemies : MonoBehaviour
         // Making waves for the level according to model specifications
         
         waveTimer += Time.deltaTime;
-<<<<<<< Updated upstream
+
         if (waveTimer >= waveInterval && waveIndex < gameModel.level1Waves.Count)
         {
             int numberToSpawn = gameModel.level1Waves[waveIndex];
-=======
+
         float turnOverTime = 10;
             if (waveTimer >= turnOverTime && waveIndex < gameModel.level1Waves.Count)
             {
-                int numberToSpawn = gameModel.level1Waves[waveIndex];
->>>>>>> Stashed changes
-
+                GameObject EOP;
+                GameObject H0G;
                 Wave newWave = new Wave();
 
                 for (int i = 0; i < numberToSpawn; i++)
                 {
-                    GameObject EOP;
-                    GameObject H0G;
                     Vector3 startPoint;
                     switch (gameModel.level1EnemyTypes[waveIndex])
                     {
@@ -86,12 +82,14 @@ public class Controller_Enemies : MonoBehaviour
                             {
                                 startPoint = new Vector3(-values.startPos + displace, 0, 20);
                                 m.nextWaypoint = new Vector3(-values.startPos + displace, 0, -20f);
+                                m.Waypoints.Add(m.nextWaypoint);
                                 m.isLeft = true;
                             }
                             else
                             {
                                 startPoint = new Vector3(values.startPos + displace, 0, 20);
                                 m.nextWaypoint = new Vector3(values.startPos + displace, 0, -20f);
+                                m.Waypoints.Add(m.nextWaypoint);
                                 m.isLeft = false;
                             }
                             break;
@@ -104,12 +102,14 @@ public class Controller_Enemies : MonoBehaviour
                             {
                                 startPoint = new Vector3(-values2.startPos + displace, 0, 20);
                                 m.nextWaypoint = new Vector3(-values2.startPos + displace, 0, -20f);
+                                m.Waypoints.Add(m.nextWaypoint);
                                 m.isLeft = true;
                             }
                             else
                             {
                                 startPoint = new Vector3(values2.startPos + displace, 0, 20);
                                 m.nextWaypoint = new Vector3(values2.startPos + displace, 0, -20f);
+                                m.Waypoints.Add(m.nextWaypoint);
                                 m.isLeft = false;
                             }
                             break;
@@ -122,12 +122,14 @@ public class Controller_Enemies : MonoBehaviour
 
                                 startPoint = new Vector3(-17f, 0, 20);
                                 m.nextWaypoint = new Vector3(17f, 0, -20f);
+                                m.Waypoints.Add(m.nextWaypoint);
                                 m.isLeft = true;
                             }
                             else
                             {
                                 startPoint = new Vector3(17f, 0, 20);
                                 m.nextWaypoint = new Vector3(17f, 0, -20f);
+                                m.Waypoints.Add(m.nextWaypoint);
                                 m.isLeft = false;
                             }
 
@@ -138,12 +140,14 @@ public class Controller_Enemies : MonoBehaviour
 
                                 startPoint = new Vector3(-17f, 0, 20);
                                 m.nextWaypoint = new Vector3(17f, 0, -20f);
+                                m.Waypoints.Add(m.nextWaypoint);
                                 m.isLeft = true;
                             }
                             else
                             {
                                 startPoint = new Vector3(17f, 0, 20);
                                 m.nextWaypoint = new Vector3(17f, 0, -20f);
+                                m.Waypoints.Add(m.nextWaypoint);
                                 m.isLeft = false;
                             }
                             break;
@@ -151,10 +155,10 @@ public class Controller_Enemies : MonoBehaviour
 
                     }
                     Vector3 stagger = new Vector3(0, 0, 2);
-                EOP = new GameObject();
+                    EOP = new GameObject();
                     EOP.transform.position = startPoint + (stagger * i);
                     newWave.enemies.Add(EOP);
-                H0G = new GameObject();
+                    H0G = new GameObject();
                     H0G.transform.position = startPoint + (stagger * i);
                     newWave.enemies.Add(H0G);
                 }
@@ -165,12 +169,10 @@ public class Controller_Enemies : MonoBehaviour
                 waveIndex++;
             }
 
-<<<<<<< Updated upstream
             waveTimer = 0;
             waveIndex++;
         }
-=======
->>>>>>> Stashed changes
+
     }
 
     private void CleanUpWave(Wave wave)

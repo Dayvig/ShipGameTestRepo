@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 public class Motorcycle_behavior : Base_Enemy_Behavior
 {
     private MotorcycleEnemy values;
+    private HogEnemy values2;
     public bool isLeft; 
     public static string BULLET_NAME = "MotorcycleBullet";
     
@@ -21,9 +22,11 @@ public class Motorcycle_behavior : Base_Enemy_Behavior
     public override void SetupEnemy()
     {
         values = GameObject.Find("Model").GetComponent<MotorcycleEnemy>();
+        values2 = GameObject.Find("Model").GetComponent<HogEnemy>();
         shootInterval = values.fireRate;
         shootTimer = Random.Range(0, shootInterval);
         hitPoints = values.hp;
+        hitPoints = values2.hp;
     }
 
     public override bool Immune()
