@@ -72,13 +72,15 @@ public class Controller_Enemies : MonoBehaviour
                         if (Random.Range(0, 2) == 0)
                         {
                             startPoint = new Vector3(-values.startPos + displace, 0, 20);
-                            m.nextWaypoint = new Vector3(-values.startPos + displace, 0, -20f);
+                            m.Waypoints.Add(new Vector3(0, 0, 0));
+                            m.Waypoints.Add(new Vector3(-values.startPos + displace, 0, -20f));
                             m.isLeft = true;
                         }
                         else
                         {
                             startPoint = new Vector3(values.startPos+displace, 0, 20);
-                            m.nextWaypoint = new Vector3(values.startPos+displace, 0, -20f);
+                            m.Waypoints.Add(new Vector3(0, 0, 0));
+                            m.Waypoints.Add(new Vector3(values.startPos + displace, 0, -20f));
                             m.isLeft = false;
                         }
                         break;
