@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 public abstract class Base_Enemy_Behavior : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public abstract class Base_Enemy_Behavior : MonoBehaviour
     public int rate = 360;
     public List<Vector3> Waypoints = new List<Vector3>();
     public Vector3 nextWaypoint;
+    public int currentWaypointIndex;
 
     public float shootInterval;
     public float shootTimer;
@@ -31,6 +34,7 @@ public abstract class Base_Enemy_Behavior : MonoBehaviour
             Waypoints.Add(new Vector3(0, 0, 0));
         }
         nextWaypoint = Waypoints[0];
+        currentWaypointIndex = 0;
         SetupEnemy();
     }
 
@@ -81,7 +85,32 @@ public abstract class Base_Enemy_Behavior : MonoBehaviour
             }
         }
     }
-    
+
+    public void SetToNextWaypoint()
+    {
+        currentWaypointIndex++;
+        if (Waypoints.Count > currentWaypointIndex)
+        {
+            nextWaypoint = Waypoints[currentWaypointIndex];
+        }
+        else
+        {
+            Debug.Log("Tried to set to incorrect waypoint");
+        }
+    }
+    public void SetToWaypoint(int toWayPoint)
+    {
+        currentWaypointIndex = toWayPoint;
+        if (Waypoints.Count > currentWaypointIndex)
+        {
+            nextWaypoint = Waypoints[currentWaypointIndex];
+        }
+        else
+        {
+            Debug.Log("Tried to set to incorrect waypoint");
+        }
+    }
+
     public void KillThisEnemy()
     {
         effects.MakeExplosion(transform.position);
