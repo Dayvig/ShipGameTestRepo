@@ -11,12 +11,16 @@ public class Model_Game : MonoBehaviour
     public float spawnDuration;
     [Header("Enemies")]
     public GameObject enemyPrefab1;
+    public GameObject enemyPrefab2;
     public GameObject enemyBulletPrefab1;
     public GameObject motorCycleEnemyPrefab;
+    public GameObject HogEnemyPrefab;
     public List<int> level1Waves;
+    public List<int> Level2Waves;
     public float enemySpeed1;
     public float enemyBulletSpeed1;
     [Header("Effects")]
     public GameObject explosionPrefab1;
     public List<string> level1EnemyTypes;
+    public List<string> level2EnemyTypes;
 }
