@@ -27,6 +27,11 @@ namespace Controllers
             if (!(elapsed >= 1f)) return;
             elapsed %= 1f;
             LowerFuel();
+
+            if (currentFuel <= 0)
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+            }
         }
 
         public void LowerFuel()
@@ -42,6 +47,7 @@ namespace Controllers
 
         public void SetFuel(float amount)
         {
+            currentFuel = amount;
             slider.value = amount;
         }
     }
