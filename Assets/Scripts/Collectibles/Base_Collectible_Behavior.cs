@@ -50,4 +50,5 @@ namespace Collectibles
         public abstract void UpdateVisuals();
         public abstract void Collect();
     }
+    
 }

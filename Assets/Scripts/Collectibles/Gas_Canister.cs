@@ -11,7 +11,7 @@ public class Gas_Canister : Base_Collectible_Behavior
     // Start is called before the first frame update
     private bool collected = false;
     // Update is called once per frame
-
+    public GascanCollectible values;
     public override void MovementUpdate()
     {
         gameObject.transform.position -= new Vector3(0,0,0.01f);
@@ -24,6 +24,7 @@ public class Gas_Canister : Base_Collectible_Behavior
     public override void SetupCollectible()
     {
         controllerFuel = GameObject.Find("Controller").GetComponent<Controller_Fuel>();
+        values = GameObject.Find("Model").GetComponent<GascanCollectible>();
     }
 
     public override bool CollectionCondition()
@@ -33,7 +34,6 @@ public class Gas_Canister : Base_Collectible_Behavior
 
     public override void UpdateVisuals()
     {
-        throw new NotImplementedException();
     }
 
     public override void Collect()

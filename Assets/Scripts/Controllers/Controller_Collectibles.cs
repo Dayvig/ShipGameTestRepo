@@ -33,7 +33,7 @@ public class Controller_Collectibles : MonoBehaviour
                 spawnTimer -= spawnInterval;
                 GameObject COL;
                 Vector3 startPoint;
-
+                
             }
 
         }
