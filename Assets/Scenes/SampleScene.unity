@@ -1081,7 +1081,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56b3f88e993290468db35146139e0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerModel: {fileID: 0}
+  hitPoints: 0
+  movementSpeed: 0
+  Waypoints: []
+  nextWaypoint: {x: 0, y: 0, z: 0}
+  currentWaypointIndex: 0
+  behaviorState: 0
+  collectOnMoveInto: 1
+  ps: {fileID: 0}
   controllerFuel: {fileID: 144164435}
+  values: {fileID: 0}
 --- !u!54 &820655349
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1953,6 +1963,7 @@ GameObject:
   - component: {fileID: 1212158455}
   - component: {fileID: 1212158456}
   - component: {fileID: 1212158457}
+  - component: {fileID: 1212158458}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -1999,6 +2010,7 @@ MonoBehaviour:
   livesBase: 3
   shieldedRadius: 1
   unshieldedRadius: 0.125
+  invincible: 0
   smoothingFactor: 6
   shipSpeed: 15
   bulletSpeed: 24
@@ -2040,6 +2052,7 @@ MonoBehaviour:
   introDuration: 0
   dialogueDuration: 0
   spawnDuration: 1
+  spawnInvincibility: 3
   enemyPrefab1: {fileID: 1796847636323191739, guid: 0d5c13421117800468820a5ee16ea6eb, type: 3}
   enemyPrefab2: {fileID: 6027086379095151095, guid: 0aca2c18010931943b1a7af63ba51579, type: 3}
   enemyBulletPrefab1: {fileID: 2100608845967562317, guid: 2e1d29638173fdc478b4fc33d78b471f, type: 3}
@@ -2051,10 +2064,10 @@ MonoBehaviour:
   enemyBulletSpeed1: 4.5
   explosionPrefab1: {fileID: 4960011077586471054, guid: 1e7df4c64a49ee241b2df38f4c533ddd, type: 3}
   level1EnemyTypes:
-  - Hog
-  - Hog
-  - Hog
-  - Hog
+  - Motorcycle
+  - Motorcycle
+  - Motorcycle
+  - Motorcycle
   - Motorcycle
   - Hog
   - Motorcycle
@@ -2183,6 +2196,22 @@ MonoBehaviour:
   startPos: 0
   startDisplace: 0
   startStagger: 0
+--- !u!114 &1212158458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212158451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 732533cf14484a7bb8161e458f4e88d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectibleName: Gas Canister
+  collectionRange: 1
+  movementSpeed: 0.01
+  hitPoints: 1
 --- !u!1 &1276577678
 GameObject:
   m_ObjectHideFlags: 0
