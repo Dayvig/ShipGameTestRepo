@@ -62,7 +62,7 @@ public class Controller_ShieldAndHealth : MonoBehaviour
         
         foreach (var c in colliders)
         {
-            if (c.gameObject.tag == "Enemy")
+            if (c.gameObject.tag == "Enemy" && !player.invincible)
             {
                 /*if (player.shieldActive)
                 {
@@ -76,7 +76,7 @@ public class Controller_ShieldAndHealth : MonoBehaviour
                 //Behavior_Enemy1 e = c.GetComponent<Behavior_Enemy1>();
                 //e.KillThisEnemy();
             }
-            else if (c.gameObject.tag == "EnemyBullet")
+            else if (c.gameObject.tag == "EnemyBullet" && !player.invincible)
             {
                 /*if (player.shieldActive)
                 {

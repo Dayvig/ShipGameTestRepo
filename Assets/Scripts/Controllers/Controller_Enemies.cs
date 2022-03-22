@@ -12,9 +12,7 @@ public class Controller_Enemies : MonoBehaviour
     private float waveTimer = 1000;
     public int waveIndex;
     private MotorcycleEnemy values;
-
     public float waveInterval = 10f;
-
     private HogEnemy values2;
 
 
@@ -61,7 +59,7 @@ public class Controller_Enemies : MonoBehaviour
         if (waveTimer >= waveInterval && waveIndex < gameModel.level1Waves.Count)
         {
             int numberToSpawn = gameModel.level1Waves[waveIndex];
-
+        
         float turnOverTime = 10;
             if (waveTimer >= turnOverTime && waveIndex < gameModel.level1Waves.Count)
             {
@@ -174,6 +172,8 @@ public class Controller_Enemies : MonoBehaviour
         }
 
     }
+    
+    
 
     private void CleanUpWave(Wave wave)
     {

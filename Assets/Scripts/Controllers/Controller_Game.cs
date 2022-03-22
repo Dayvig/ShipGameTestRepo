@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,9 @@ public class Controller_Game : MonoBehaviour
     [Header("Current State")]
     [SerializeField] string stateReadout;
 
+    private float spawnInvincibilityTimer;
+    private bool SpawnInvincibility = true;
+    
     //---------------------------------------------------------
     // NOTE: Game will start in the following sequence:
     // 1) Intro
@@ -197,6 +201,7 @@ public class Controller_Game : MonoBehaviour
     }
     private void _RespawnUpdate()
     {
+        spawnInvincibilityTimer = gameModel.spawnInvincibility;
         spawnTimer += Time.deltaTime;
 
         playerModel.positionTarget = Vector3.Lerp(
@@ -207,6 +212,7 @@ public class Controller_Game : MonoBehaviour
         if (spawnTimer >= gameModel.spawnDuration)
         {
             SetGameState(GameStates.Play);
+            SpawnInvincibility = true;
         }
     }
     private void _PlayUpdate()
@@ -218,6 +224,21 @@ public class Controller_Game : MonoBehaviour
 
         if (playerModel.hitpointsCurrent <= 0)
             SetGameState(GameStates.Die);
+        if (SpawnInvincibility)
+        {
+            if (spawnInvincibilityTimer > 0)
+            {
+                shipController.playerModel.invincible = true;
+                spawnInvincibilityTimer -= Time.deltaTime;
+            }
+            else
+            {
+                shipController.playerModel.invincible = false;
+                SpawnInvincibility = false;
+            }
+
+            Debug.Log(spawnInvincibilityTimer);
+        }
     }
     private float deathTimer;
     private void _DieUpdate()

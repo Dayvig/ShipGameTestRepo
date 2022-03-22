@@ -9,6 +9,8 @@ public class Model_Game : MonoBehaviour
     public float introDuration;
     public float dialogueDuration;
     public float spawnDuration;
+    public float spawnInvincibility;
+
     [Header("Enemies")]
     public GameObject enemyPrefab1;
     public GameObject enemyPrefab2;
