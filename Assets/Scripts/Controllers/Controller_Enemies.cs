@@ -152,13 +152,6 @@ public class Controller_Enemies : MonoBehaviour
 
 
                     }
-                    Vector3 stagger = new Vector3(0, 0, 2);
-                    EOP = new GameObject();
-                    EOP.transform.position = startPoint + (stagger * i);
-                    newWave.enemies.Add(EOP);
-                    H0G = new GameObject();
-                    H0G.transform.position = startPoint + (stagger * i);
-                    newWave.enemies.Add(H0G);
                 }
 
                 waves.Add(newWave);

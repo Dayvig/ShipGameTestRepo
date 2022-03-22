@@ -5,15 +5,38 @@ using UnityEngine;
 public class Controller_PlayerShip : MonoBehaviour
 {
     public Model_Player playerModel;
-    
+    public Material invincibleColor;
+    public Material normalColor;
+
+    public MeshRenderer[] playerShipObjects = new MeshRenderer[3];
     private void Start()
     {
         Debug.Assert(playerModel != null, "Controller_PlayerShip is looking for a reference to Model_Player, but none has been added in the Inspector!");
+        playerShipObjects[0] = GameObject.Find("Cockpit").GetComponent<MeshRenderer>();
+        playerShipObjects[1] = GameObject.Find("Cube").GetComponent<MeshRenderer>();
+        playerShipObjects[2] = GameObject.Find("Fuselage").GetComponent<MeshRenderer>();
+
     }
 
     private void Update()
     {
         _ApplySmoothingToMotion();
+        if (playerModel.invincible)
+        {
+            //playerModel.
+            playerShipObjects[0].material = invincibleColor;
+            playerShipObjects[1].material = invincibleColor;
+            playerShipObjects[2].material = invincibleColor;
+            playerModel.shieldActive = true;
+        }
+        else
+        {
+            playerShipObjects[0].material = normalColor;
+            playerShipObjects[1].material = normalColor;
+            playerShipObjects[2].material = normalColor;
+            playerModel.shieldActive = false;
+
+        }
     }
 
     public void ShipUpdate()

@@ -7,6 +7,7 @@ namespace Controllers
     public class Controller_Fuel : MonoBehaviour
     {
         public Slider slider;
+        public Model_Player playerModel;
 
         public const float FuelMax = 100;
         public float currentFuel;
@@ -16,6 +17,8 @@ namespace Controllers
         public float elapsed = 0f;
         void Start()
         {
+            Debug.Assert(playerModel != null, "Controller_PlayerGuns is looking for a reference to Model_Player, but none has been added in the Inspector!");
+
             interval = FuelMax / timeInSeconds;
             currentFuel = FuelMax;
             SetFuel(currentFuel);
@@ -30,6 +33,12 @@ namespace Controllers
 
             if (currentFuel <= 0)
             {
+                if (playerModel.hitpointsCurrent > 0)
+                {
+                    playerModel.livesCurrent--;
+                    playerModel.hitpointsCurrent = 0;
+
+                }
                 UnityEngine.SceneManagement.SceneManager.LoadScene(1);
             }
         }

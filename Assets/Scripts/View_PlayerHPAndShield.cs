@@ -29,6 +29,9 @@ public class View_PlayerHPAndShield : MonoBehaviour
     private MeshRenderer[] renderers;
     private ParticleSystem[] jets;
 
+    public float livesOffset;
+    public float livesSpace;
+
     void Start()
     {
         Debug.Assert(playerModel != null, "View_PlayerHPAndShield is looking for a reference to Model_Player, but none has been added in the Inspector!");
@@ -36,6 +39,7 @@ public class View_PlayerHPAndShield : MonoBehaviour
 
         _shieldPoints = new List<Image>();
         _armorPoints = new List<Image>();
+        armorIcon.enabled = false;
 
         for (int i = 0; i < 30; i++)
         {
@@ -44,7 +48,7 @@ public class View_PlayerHPAndShield : MonoBehaviour
             _shieldPoints[i].gameObject.SetActive(false);
 
             _armorPoints.Add(Instantiate(armorPoint, armorIcon.transform));
-            _armorPoints[i].rectTransform.localPosition = armorPoint.rectTransform.localPosition + Vector3.up * 30 * i;
+            _armorPoints[i].rectTransform.localPosition = (armorPoint.rectTransform.localPosition + Vector3.right * livesSpace * i);
             _armorPoints[i].gameObject.SetActive(false);
         }
 
@@ -74,7 +78,7 @@ public class View_PlayerHPAndShield : MonoBehaviour
 
         for (int i = 0; i < _armorPoints.Count; i++)
         {
-            _armorPoints[i].gameObject.SetActive(i < playerModel.hitpointsCurrent);
+            _armorPoints[i].gameObject.SetActive(i < playerModel.livesCurrent);
         }
 
         _ShowAliveAndDead(playerModel.hitpointsCurrent > 0);
