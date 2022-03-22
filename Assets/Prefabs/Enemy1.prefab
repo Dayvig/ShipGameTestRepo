@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 1796847636323191741}
   - component: {fileID: 2676744755969330334}
   - component: {fileID: -508755243249687542}
+  - component: {fileID: -6897135348749779516}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Enemy
@@ -202,10 +203,25 @@ MonoBehaviour:
   rate: 360
   Waypoints: []
   nextWaypoint: {x: 0, y: 0, z: 0}
+  currentWaypointIndex: 0
   shootInterval: 0
   shootTimer: 0
   behaviorState: 0
   isLeft: 0
+--- !u!114 &-6897135348749779516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796847636323191739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fef49ca6d331bb44baf685e08fe1c27e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy1: {fileID: 1796847636323191743}
+  enemy2: {fileID: 0}
 --- !u!1 &1796847637132967849
 GameObject:
   m_ObjectHideFlags: 0

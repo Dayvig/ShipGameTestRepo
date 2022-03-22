@@ -9,14 +9,12 @@ public class Controller_Enemies : MonoBehaviour
 {
     public Model_Game gameModel;
     public List<Wave> waves;
-    private float waveTimer = 1000;
+    private float waveTimer = 6f;
     public int waveIndex;
     private MotorcycleEnemy values;
-
-    public float waveInterval = 10f;
-
+    public int enemycount;
     private HogEnemy values2;
-
+    public int doubleWave;
 
     void Start()
     {
@@ -29,6 +27,7 @@ public class Controller_Enemies : MonoBehaviour
     void Update()
     {
         // Enemies Movement
+        Debug.Log(enemycount);
         for (int i = waves.Count -1; i >= 0; i--)
         {
             Wave wave = waves[i];
@@ -57,13 +56,14 @@ public class Controller_Enemies : MonoBehaviour
         // Making waves for the level according to model specifications
         
         waveTimer += Time.deltaTime;
-
-        if (waveTimer >= waveInterval && waveIndex < gameModel.level1Waves.Count)
+        Debug.Log(waveTimer);
+        if (waveTimer >= gameModel.waveSpawn && waveIndex < gameModel.level1Waves.Count)
         {
             int numberToSpawn = gameModel.level1Waves[waveIndex];
+            doubleWave++;
 
         float turnOverTime = 10;
-            if (waveTimer >= turnOverTime && waveIndex < gameModel.level1Waves.Count)
+            if (waveTimer >= turnOverTime && gameModel.waveSpawn < gameModel.level1Waves.Count)
             {
                 GameObject EOP;
                 GameObject H0G;
@@ -77,6 +77,7 @@ public class Controller_Enemies : MonoBehaviour
                         case "Motorcycle":
                             EOP = Instantiate(gameModel.motorCycleEnemyPrefab);
                             Motorcycle_behavior m = EOP.GetComponent<Motorcycle_behavior>();
+                            enemycount++;
                             float displace = Random.Range(-values.startDisplace, values.startDisplace);
                             if (Random.Range(0, 2) == 0)
                             {
@@ -96,6 +97,7 @@ public class Controller_Enemies : MonoBehaviour
 
                         case "Hog":
                             H0G = Instantiate(gameModel.HogEnemyPrefab);
+                            enemycount++;
                             m = H0G.GetComponent<Motorcycle_behavior>();
                             displace = Random.Range(-values2.startDisplace, values2.startDisplace);
                             if (Random.Range(0, 2) == 0)
@@ -116,6 +118,7 @@ public class Controller_Enemies : MonoBehaviour
 
                         default:
                             EOP = Instantiate(gameModel.motorCycleEnemyPrefab);
+                            enemycount++;
                             m = EOP.GetComponent<Motorcycle_behavior>();
                             if ((int)Random.Range(0, 1) == 0)
                             {
@@ -134,6 +137,7 @@ public class Controller_Enemies : MonoBehaviour
                             }
 
                             H0G = Instantiate(gameModel.HogEnemyPrefab);
+                            enemycount++;
                             m = H0G.GetComponent<Motorcycle_behavior>();
                             if ((int)Random.Range(0, 1) == 0)
                             {
@@ -155,22 +159,29 @@ public class Controller_Enemies : MonoBehaviour
 
                     }
                     Vector3 stagger = new Vector3(0, 0, 2);
-                    EOP = new GameObject();
-                    EOP.transform.position = startPoint + (stagger * i);
-                    newWave.enemies.Add(EOP);
-                    H0G = new GameObject();
-                    H0G.transform.position = startPoint + (stagger * i);
-                    newWave.enemies.Add(H0G);
+ //                   EOP = new GameObject();
+ //                   EOP.transform.position = startPoint + (stagger * i);
+//                    newWave.enemies.Add(EOP);
+ //                   H0G = new GameObject();
+ //                   H0G.transform.position = startPoint + (stagger * i);
+ //                   newWave.enemies.Add(H0G);
                 }
+                if (enemycount == 0)
+                {
+                    waves.Add(newWave);
 
-                waves.Add(newWave);
-
-                waveTimer = 0;
-                waveIndex++;
+                    waveTimer = 0;
+                    waveIndex++;
+                }
             }
 
-            waveTimer = 0;
+            waveTimer = gameModel.waveCooldown[waveIndex];
             waveIndex++;
+        }
+        if (doubleWave >= gameModel.waveCooldown[waveIndex])
+        {
+            waveTimer = 8f;
+            doubleWave = 0;
         }
 
     }
@@ -186,6 +197,7 @@ public class Controller_Enemies : MonoBehaviour
             var H0G = wave.enemies[j];
             wave.enemies.Remove(H0G);
             Destroy(H0G.transform.gameObject);
+            enemycount--;
         }
         waves.Remove(wave);
     }
